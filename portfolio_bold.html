@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rajesh Devarakonda | AI Implementation</title>
+<style>
+  :root {
+    --text: #0a0a0a;
+    --muted: #525252;
+    --subtle: #a3a3a3;
+    --border: #e5e5e5;
+    --bg: #ffffff;
+    --bg-soft: #fafafa;
+    --accent: #0d7377;
+    --accent-light: #e6f4f4;
+    --amber: #92400e;
+    --amber-light: #fef3c7;
+    --red-light: #fef2f2; --red: #991b1b;
+    --green-light: #f0fdf4; --green: #166534;
+    --max: 860px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    background: var(--bg); color: var(--text);
+    font-size: 16px; line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: var(--max); margin: 0 auto; padding: 0 32px; }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,0.94); backdrop-filter: blur(10px);
+    border-bottom: 2px solid var(--text);
+  }
+  nav .container { display: flex; align-items: center; justify-content: space-between; padding-top: 14px; padding-bottom: 14px; }
+  .nav-name { font-size: 13px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--text); text-decoration: none; }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a { font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color .15s; }
+  .nav-links a:hover { color: var(--text); }
+
+  /* HERO */
+  #hero { padding: 80px 0 72px; border-bottom: 2px solid var(--text); }
+  .hero-issue {
+    font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--subtle); margin-bottom: 32px; display: flex; align-items: center; gap: 12px;
+  }
+  .hero-issue::after { content: ""; flex: 1; height: 1px; background: var(--border); }
+  h1 {
+    font-size: clamp(44px, 7vw, 80px); font-weight: 900; line-height: 1.0;
+    letter-spacing: -.04em; margin-bottom: 32px;
+  }
+  h1 em { font-style: normal; color: var(--accent); }
+  .hero-deck {
+    font-size: clamp(17px, 2.2vw, 20px); color: var(--muted);
+    max-width: 600px; margin-bottom: 40px; line-height: 1.5; font-weight: 400;
+  }
+  .hero-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    font-size: 12px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
+    padding: 6px 14px; border: 2px solid var(--text); border-radius: 2px;
+    color: var(--text); background: transparent;
+  }
+  .chip-filled { background: var(--text); color: #fff; }
+
+  /* SECTION CHROME */
+  .section-intro { padding: 64px 0 0; }
+  .section-kicker {
+    font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--subtle); display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
+  }
+  .section-kicker::after { content: ""; flex: 1; height: 1px; background: var(--border); }
+  .section-title { font-size: clamp(28px, 4vw, 40px); font-weight: 900; letter-spacing: -.03em; margin-bottom: 10px; }
+  .section-deck { font-size: 16px; color: var(--muted); margin-bottom: 48px; }
+
+  /* PILLARS */
+  #pillars { padding: 64px 0; border-bottom: 2px solid var(--text); }
+  .pillars { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; border: 2px solid var(--text); }
+  @media(max-width:600px){ .pillars { grid-template-columns: 1fr; } }
+  .pillar { padding: 28px 24px; border-right: 2px solid var(--text); }
+  .pillar:last-child { border-right: none; }
+  .pillar-num { font-size: 11px; font-weight: 800; letter-spacing: .12em; color: var(--subtle); margin-bottom: 16px; }
+  .pillar h3 { font-size: 15px; font-weight: 800; margin-bottom: 8px; letter-spacing: -.01em; }
+  .pillar p { font-size: 13px; color: var(--muted); line-height: 1.55; }
+
+  /* WORK */
+  #work { padding: 0 0 72px; border-bottom: 2px solid var(--text); }
+  .work-list { display: flex; flex-direction: column; }
+  .work-card { border-top: 2px solid var(--text); padding: 40px 0; }
+  .work-card:last-child { border-bottom: 2px solid var(--text); }
+  .work-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 4px; }
+  .work-card h3 { font-size: clamp(20px, 3vw, 26px); font-weight: 900; letter-spacing: -.02em; line-height: 1.2; }
+  .work-tags { display: flex; gap: 6px; flex-wrap: wrap; flex-shrink: 0; }
+  .wtag {
+    font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
+    padding: 4px 10px; border: 1.5px solid currentColor; border-radius: 2px;
+  }
+  .wtag-teal { color: var(--accent); }
+  .wtag-amber { color: var(--amber); }
+  .work-desc { font-size: 15px; color: var(--muted); margin: 16px 0 24px; line-height: 1.65; max-width: 640px; }
+  .lessons-head { font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--subtle); margin-bottom: 16px; }
+  .lessons-list { display: flex; flex-direction: column; gap: 0; border-left: 3px solid var(--text); }
+  .lesson-item { padding: 12px 0 12px 20px; border-bottom: 1px solid var(--border); }
+  .lesson-item:last-child { border-bottom: none; }
+  .lesson-label { font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+  .lesson-text { font-size: 14px; color: var(--text); line-height: 1.6; }
+
+  /* EXPERIMENTS */
+  #experiments { padding: 72px 0; border-bottom: 2px solid var(--text); }
+  .exp-card { border: 2px solid var(--text); }
+  .exp-head { padding: 28px 28px 20px; border-bottom: 2px solid var(--text); }
+  .exp-head h3 { font-size: 20px; font-weight: 900; letter-spacing: -.02em; margin-bottom: 6px; }
+  .exp-head p { font-size: 14px; color: var(--muted); }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th {
+    text-align: left; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--subtle); padding: 10px 16px; background: var(--bg-soft); border-bottom: 2px solid var(--text);
+  }
+  td { padding: 11px 16px; border-bottom: 1px solid var(--border); }
+  tr.winner td { background: var(--green-light); font-weight: 600; }
+  tr.worst td { background: var(--red-light); }
+  .badge { font-size: 10px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; padding: 3px 9px; border: 1.5px solid currentColor; border-radius: 2px; }
+  .badge-g { color: var(--green); }
+  .badge-r { color: var(--red); }
+  .badge-n { color: var(--subtle); }
+  .exp-insight { padding: 18px 28px; background: var(--bg-soft); border-top: 2px solid var(--text); display: flex; gap: 12px; }
+  .exp-insight-label { font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); flex-shrink: 0; padding-top: 3px; }
+  .exp-insight-text { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+  /* LOG */
+  #log { padding: 72px 0; border-bottom: 2px solid var(--text); }
+  .log-list { display: flex; flex-direction: column; }
+  .log-entry { display: grid; grid-template-columns: 52px 1fr; gap: 24px; padding: 28px 0; border-bottom: 1px solid var(--border); }
+  .log-entry:first-child { border-top: 2px solid var(--text); }
+  .log-num { font-size: 28px; font-weight: 900; color: var(--border); letter-spacing: -.03em; padding-top: 4px; }
+  .log-h { font-size: 18px; font-weight: 800; letter-spacing: -.02em; margin-bottom: 8px; }
+  .log-p { font-size: 14px; color: var(--muted); line-height: 1.65; }
+  .log-tag { display: inline-block; margin-top: 10px; font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--subtle); }
+
+  /* CONNECT */
+  #connect { padding: 72px 0; }
+  .connect-statement { font-size: clamp(20px, 3vw, 28px); font-weight: 900; letter-spacing: -.02em; line-height: 1.25; max-width: 560px; margin-bottom: 40px; }
+  .connect-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 2px solid var(--text); }
+  @media(max-width:500px){ .connect-grid { grid-template-columns: 1fr; } }
+  .connect-link {
+    display: flex; align-items: center; gap: 14px;
+    padding: 20px 22px; border-right: 2px solid var(--text); border-bottom: 2px solid var(--text);
+    text-decoration: none; color: var(--text); transition: background .12s;
+  }
+  .connect-link:nth-child(2n) { border-right: none; }
+  .connect-link:nth-last-child(-n+2) { border-bottom: none; }
+  .connect-link:hover { background: var(--bg-soft); }
+  .c-icon { font-size: 18px; flex-shrink: 0; }
+  .c-label { font-size: 13px; font-weight: 800; }
+  .c-sub { font-size: 12px; color: var(--muted); }
+
+  /* FOOTER */
+  footer { border-top: 2px solid var(--text); padding: 20px 0; }
+  footer .container { display: flex; justify-content: space-between; align-items: center; }
+  .footer-name { font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+  .footer-note { font-size: 11px; color: var(--subtle); }
+
+  @media(max-width:600px){
+    .work-head { flex-direction: column; }
+    nav .container { flex-wrap: wrap; gap: 10px; }
+    .nav-links { gap: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a class="nav-name" href="#hero">RD</a>
+    <ul class="nav-links">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#experiments">Data</a></li>
+      <li><a href="#log">Notes</a></li>
+      <li><a href="#connect">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section id="hero">
+  <div class="container">
+    <p class="hero-issue">AI Implementation &amp; Governance / Portfolio 2026</p>
+    <h1>I build things<br>with <em>AI</em> that<br>solve real problems.</h1>
+    <p class="hero-deck">Then I document where they break and why. I&rsquo;m not a developer. I&rsquo;m the person who designs the system, watches it fail, and fixes it structurally.</p>
+    <div class="hero-chips">
+      <span class="chip chip-filled">Agentic Workflow Design</span>
+      <span class="chip chip-filled">Enterprise AI Implementation</span>
+      <span class="chip chip-filled">Prompt Engineering</span>
+      <span class="chip">San Jose, CA</span>
+      <span class="chip">Open to AI Roles</span>
+    </div>
+  </div>
+</section>
+
+<section id="pillars">
+  <div class="container">
+    <div class="pillars">
+      <div class="pillar">
+        <p class="pillar-num">01</p>
+        <h3>Agentic workflow design</h3>
+        <p>Multi-agent systems with defined roles, strict handoffs, and failure modes I&rsquo;ve actually encountered.</p>
+      </div>
+      <div class="pillar">
+        <p class="pillar-num">02</p>
+        <h3>Enterprise AI implementation</h3>
+        <p>Deploying AI inside real delivery teams: Rovo, Copilot, Jira AI. Solving problems people actually have.</p>
+      </div>
+      <div class="pillar">
+        <p class="pillar-num">03</p>
+        <h3>Prompt engineering &amp; cost governance</h3>
+        <p>Measuring token spend, accuracy, and reliability. Knowing which prompt pattern fits which task.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="container">
+    <div class="section-intro">
+      <p class="section-kicker">Selected work</p>
+      <h2 class="section-title">What I&rsquo;ve built</h2>
+      <p class="section-deck">Problems I saw, approaches I tried, and what the failures taught me.</p>
+    </div>
+    <div class="work-list">
+
+      <div class="work-card">
+        <div class="work-head">
+          <h3>Multi-agent healthcare records app</h3>
+          <div class="work-tags">
+            <span class="wtag wtag-teal">Agentic</span>
+            <span class="wtag wtag-amber">Healthcare</span>
+          </div>
+        </div>
+        <p class="work-desc">Designed and orchestrated a five-agent Claude Code workflow to build an offline-first healthcare records app for semi-urban Indian clinics. No traditional dev team. 354 commits. The app shipped. It failed three times before working reliably.</p>
+        <p class="lessons-head">What I learned</p>
+        <div class="lessons-list">
+          <div class="lesson-item">
+            <p class="lesson-label">On failure modes</p>
+            <p class="lesson-text">Agents fail at boundaries between them, not inside them. Every gap in the workflow was a handoff nobody owned.</p>
+          </div>
+          <div class="lesson-item">
+            <p class="lesson-label">On risk</p>
+            <p class="lesson-text">Documenting a risk is not the same as gating on it. &ldquo;Deferred&rdquo; is not &ldquo;handled.&rdquo;</p>
+          </div>
+          <div class="lesson-item">
+            <p class="lesson-label">On fixes</p>
+            <p class="lesson-text">Fixing a gap moves it. It doesn&rsquo;t eliminate it. Every new agent boundary is a new potential failure point.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-card">
+        <div class="work-head">
+          <h3>Sprint intelligence agents: enterprise delivery</h3>
+          <div class="work-tags">
+            <span class="wtag wtag-teal">Enterprise AI</span>
+            <span class="wtag wtag-amber">Jira / Rovo</span>
+          </div>
+        </div>
+        <p class="work-desc">Built three AI-powered agents inside Jira and Rovo to solve recurring pain points in a real delivery team: daily sprint health reports, cycle time analytics, and estimation accuracy analysis. None required a developer.</p>
+        <p class="lessons-head">What I learned</p>
+        <div class="lessons-list">
+          <div class="lesson-item">
+            <p class="lesson-label">On architecture</p>
+            <p class="lesson-text">Adding more classification rules made the AI less reliable. The real fix was structural: use JQL for retrieval, AI only for interpretation. Misclassification became architecturally impossible.</p>
+          </div>
+          <div class="lesson-item">
+            <p class="lesson-label">On information</p>
+            <p class="lesson-text">Stakeholders don&rsquo;t need more data. They need fewer signals, only what requires a decision. Removing columns improved the report more than adding detail did.</p>
+          </div>
+          <div class="lesson-item">
+            <p class="lesson-label">On visibility</p>
+            <p class="lesson-text">Cycle time and estimation accuracy were invisible problems. Not because the data didn&rsquo;t exist, but because nobody had extracted it. AI made the invisible legible.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="experiments">
+  <div class="container">
+    <p class="section-kicker">Experiments</p>
+    <h2 class="section-title">Things I&rsquo;ve measured</h2>
+    <p class="section-deck">Real API calls. Real token counts. Real findings.</p>
+
+    <div class="exp-card">
+      <div class="exp-head">
+        <h3>Prompt pattern efficiency: clinical NLP tasks</h3>
+        <p>Four patterns, same task, same model. Token cost, accuracy, and hallucination risk across three experiments.</p>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Pattern</th><th>Tokens</th><th>Cost</th><th>Accuracy</th><th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Unstructured</td><td>426</td><td>$0.000276</td><td>n/a</td>
+            <td><span class="badge badge-n">Baseline</span></td>
+          </tr>
+          <tr class="worst">
+            <td>Structured sections</td><td>561</td><td>$0.000422</td><td>n/a</td>
+            <td><span class="badge badge-r">Most expensive</span></td>
+          </tr>
+          <tr>
+            <td>Constrained output</td><td>395</td><td>$0.000224</td><td>n/a</td>
+            <td><span class="badge badge-n">Better</span></td>
+          </tr>
+          <tr class="winner">
+            <td>Role + strict format</td><td>387</td><td>$0.000197</td><td>11/11</td>
+            <td><span class="badge badge-g">Best</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="exp-insight">
+        <span class="exp-insight-label">Finding</span>
+        <span class="exp-insight-text">The structured sections prompt (what most teams default to) cost 52% more than the optimised version with no accuracy gain. At 1M calls/month: $225 wasted. Output token compression is the real lever.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="log">
+  <div class="container">
+    <p class="section-kicker">Lab notes</p>
+    <h2 class="section-title">What I&rsquo;m learning</h2>
+    <p class="section-deck">Running log. Updated as I go.</p>
+    <div class="log-list">
+      <div class="log-entry">
+        <span class="log-num">03</span>
+        <div>
+          <h3 class="log-h">On hallucination risk in ambiguous inputs</h3>
+          <p class="log-p">Tested four prompt patterns on a deliberately messy prescription with three ambiguous drug entries. No variant hallucinated, including the unstructured one with no guardrails. This isn&rsquo;t a prompting finding. It&rsquo;s a model selection finding. Before deploying AI in safety-critical contexts, benchmark the model, not just the prompt.</p>
+          <span class="log-tag">Prompt engineering &middot; Model evaluation</span>
+        </div>
+      </div>
+      <div class="log-entry">
+        <span class="log-num">02</span>
+        <div>
+          <h3 class="log-h">On the difference between rules and architecture</h3>
+          <p class="log-p">An AI classification agent kept misclassifying despite increasingly specific rules. Each new rule added prompt length, which hit the output limit, which broke something else. The real fix: use deterministic queries for retrieval, leave AI only for interpretation. You cannot instruct your way out of an architectural problem.</p>
+          <span class="log-tag">Enterprise AI &middot; Agentic systems</span>
+        </div>
+      </div>
+      <div class="log-entry">
+        <span class="log-num">01</span>
+        <div>
+          <h3 class="log-h">On where agentic systems fail</h3>
+          <p class="log-p">After building a five-agent workflow, every failure happened at a boundary, a handoff point nobody owned. The agents performed well in isolation. The gaps were structural. The audit question isn&rsquo;t &ldquo;is each agent correct?&rdquo; It&rsquo;s &ldquo;who owns each seam?&rdquo;</p>
+          <span class="log-tag">Agentic systems &middot; System design</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="connect">
+  <div class="container">
+    <p class="section-kicker">Connect</p>
+    <p class="connect-statement">If you&rsquo;re deploying AI inside an enterprise and want someone who has done this hands-on, including the failures. Let&rsquo;s talk.</p>
+    <div class="connect-grid">
+      <a class="connect-link" href="https://www.linkedin.com/in/rajesh-d-1507021a5" target="_blank" rel="noopener">
+        <span class="c-icon">💼</span>
+        <div><div class="c-label">LinkedIn</div><div class="c-sub">rajesh-d-1507021a5</div></div>
+      </a>
+      <a class="connect-link" href="https://github.com/rdevarakond88" target="_blank" rel="noopener">
+        <span class="c-icon">⌥</span>
+        <div><div class="c-label">GitHub</div><div class="c-sub">rdevarakond88</div></div>
+      </a>
+      <a class="connect-link" href="https://github.com/rdevarakond88/medrecord" target="_blank" rel="noopener">
+        <span class="c-icon">📋</span>
+        <div><div class="c-label">MedRecord</div><div class="c-sub">source & documentation</div></div>
+      </a>
+      <a class="connect-link" href="mailto:rdevarakonda88@gmail.com">
+        <span class="c-icon">✉️</span>
+        <div><div class="c-label">Email</div><div class="c-sub">rdevarakonda88@gmail.com</div></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <span class="footer-name">Rajesh Devarakonda</span>
+    <span class="footer-note">Updated June 2026 / San Jose, CA</span>
+  </div>
+</footer>
+
+</body>
+</html>
