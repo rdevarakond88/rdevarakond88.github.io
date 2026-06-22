@@ -108,6 +108,9 @@
   .lesson-label { font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
   .lesson-text { font-size: 14px; color: var(--text); line-height: 1.6; }
 
+  /* EVALS */
+  #evals { padding: 72px 0; border-bottom: 2px solid var(--text); }
+
   /* EXPERIMENTS */
   #experiments { padding: 72px 0; border-bottom: 2px solid var(--text); }
   .exp-card { border: 2px solid var(--text); }
@@ -177,6 +180,7 @@
     <a class="nav-name" href="#hero">RD</a>
     <ul class="nav-links">
       <li><a href="#work">Work</a></li>
+      <li><a href="#evals">Evals</a></li>
       <li><a href="#experiments">Data</a></li>
       <li><a href="#log">Notes</a></li>
       <li><a href="#connect">Contact</a></li>
@@ -238,7 +242,7 @@
             <span class="wtag wtag-amber">Healthcare</span>
           </div>
         </div>
-        <p class="work-desc">Designed and orchestrated a five-agent Claude Code workflow to build an offline-first healthcare records app for semi-urban Indian clinics. No traditional dev team. 354 commits. The app shipped. It failed three times before working reliably.</p>
+        <p class="work-desc">Designed and orchestrated an eight-agent Claude Code workflow to build an offline-first healthcare records app for semi-urban Indian clinics. No traditional dev team. 354 commits. The app shipped. It failed three times before working reliably.</p>
         <p class="lessons-head">What I learned</p>
         <div class="lessons-list">
           <div class="lesson-item">
@@ -282,6 +286,52 @@
         </div>
       </div>
 
+    </div>
+  </div>
+</section>
+
+<section id="evals">
+  <div class="container">
+    <p class="section-kicker">AI evals</p>
+    <h2 class="section-title">How I know the agents are reliable</h2>
+    <p class="section-deck">Independent scoring instead of trusting completion claims. PASS, PARTIAL, FAIL. No agent grades its own work.</p>
+
+    <div class="exp-card">
+      <div class="exp-head">
+        <h3>MedRecord agent eval, v1.4</h3>
+        <p>31 test cases scored across 5 modes, from isolated checks to a full pipeline run. PARTIAL counts as zero, not half credit. Blocked test cases (infrastructure failures, not agent failures) are excluded entirely.</p>
+      </div>
+      <table>
+        <thead>
+          <tr><th>What was tested</th><th>Score</th><th></th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Invocation compliance &mdash; right agent, right moment</td><td>70%</td>
+            <td><span class="badge badge-n">Mostly compliant</span></td>
+          </tr>
+          <tr>
+            <td>Output quality &mdash; correct format and content</td><td>50%</td>
+            <td><span class="badge badge-r">Needs attention</span></td>
+          </tr>
+          <tr class="winner">
+            <td>Drift resistance &mdash; holds scope over long sessions</td><td>80%</td>
+            <td><span class="badge badge-g">Healthy</span></td>
+          </tr>
+          <tr class="winner">
+            <td>State-driven routing &mdash; reads project state correctly</td><td>80%</td>
+            <td><span class="badge badge-g">Healthy</span></td>
+          </tr>
+          <tr class="worst">
+            <td>End-to-end pipeline &mdash; all agents, real handoffs</td><td>0%</td>
+            <td><span class="badge badge-r">Critical gap</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="exp-insight">
+        <span class="exp-insight-label">Finding</span>
+        <span class="exp-insight-text">Four of five modes test agents on their own: declare correctly, format correctly, hold scope, route correctly. They mostly do, 70&ndash;80%. The fifth mode connects them into a real pipeline, and that&rsquo;s where it breaks. The clearest example: Security Agent rated a real authentication-exposure bug one severity tier too low, HIGH instead of CRITICAL, only once it was running inside the actual pipeline. That weaker signal is exactly why a different agent then marked the bug &ldquo;resolved&rdquo; on its own, before any re-check confirmed it. Individually competent agents, connected wrong, is a harder problem than one bad agent, and it&rsquo;s invisible until you test the seams, not just the parts.</span>
+      </div>
     </div>
   </div>
 </section>
