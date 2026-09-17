@@ -333,6 +333,44 @@
         <span class="exp-insight-text">Four of five modes test agents on their own: declare correctly, format correctly, hold scope, route correctly. They mostly do, 70&ndash;80%. The fifth mode connects them into a real pipeline, and that&rsquo;s where it breaks. The clearest example: Security Agent rated a real authentication-exposure bug one severity tier too low, HIGH instead of CRITICAL, only once it was running inside the actual pipeline. That weaker signal is exactly why a different agent then marked the bug &ldquo;resolved&rdquo; on its own, before any re-check confirmed it. Individually competent agents, connected wrong, is a harder problem than one bad agent, and it&rsquo;s invisible until you test the seams, not just the parts.</span>
       </div>
     </div>
+
+    <div class="exp-card">
+      <div class="exp-head">
+        <h3>Status-drift-agent eval, v10</h3>
+        <p>23 hand-labeled commits scored across 4 pipeline stages, from a single AI call to full deterministic rule enforcement. 6 historically unstable entries are re-run 3&times; independently &mdash; a single run isn&rsquo;t trusted as fact.</p>
+      </div>
+      <table>
+        <thead>
+          <tr><th>What was tested</th><th>Score</th><th></th></tr>
+        </thead>
+        <tbody>
+          <tr class="winner">
+            <td>Deterministic overrides &mdash; force the right status once a claim is actually disproven</td><td>100%</td>
+            <td><span class="badge badge-g">Reliable</span></td>
+          </tr>
+          <tr class="winner">
+            <td>Model judgment &mdash; final status matches the hand-labeled answer key</td><td>91%</td>
+            <td><span class="badge badge-g">Strong</span></td>
+          </tr>
+          <tr>
+            <td>Repeat-run stability &mdash; same commit, same answer, run independently</td><td>83%</td>
+            <td><span class="badge badge-n">Mostly stable</span></td>
+          </tr>
+          <tr class="worst">
+            <td>Self-check validator &mdash; flags a real contradiction, not a coincidence</td><td>0%</td>
+            <td><span class="badge badge-r">Critical gap</span></td>
+          </tr>
+          <tr>
+            <td>Unverifiable-claim detection &mdash; catches a bare, evidence-free process claim</td><td>n/a</td>
+            <td><span class="badge badge-r">Not built</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="exp-insight">
+        <span class="exp-insight-label">Finding</span>
+        <span class="exp-insight-text">Four of five checks hold up well, 83&ndash;100%. The fifth is where it breaks: a validator built specifically to catch the AI contradicting itself turned out to have its own blind spot. It decides &ldquo;is this a real problem&rdquo; by checking whether two words sit close together in a sentence &mdash; not by understanding what the sentence means. Same commit, same true fact, worded two slightly different ways: one wording passed, the other flipped a correct answer to wrong, twice in three tries. Widening the rule would only catch this exact wording and miss the next one. A checker built to watch the AI needs its own watching &mdash; invisible until you check the checker, not just the thing it&rsquo;s checking.</span>
+      </div>
+    </div>
   </div>
 </section>
 
