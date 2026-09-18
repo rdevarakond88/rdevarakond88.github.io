@@ -108,55 +108,16 @@
   .lesson-label { font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
   .lesson-text { font-size: 14px; color: var(--text); line-height: 1.6; }
 
-  /* PIPELINE DIAGRAM (animated, end-to-end flow) */
-  .pipeline { margin: 4px 0 32px; }
-  .pipeline-rail { position: relative; height: 14px; margin-bottom: -1px; }
-  .pipeline-rail::before {
-    content: ""; position: absolute; top: 50%; width: 12px; height: 12px;
-    background: var(--accent); border-radius: 50%; transform: translate(-50%, -50%);
-    box-shadow: 0 0 0 4px var(--accent-light);
-    animation: pipelinePulse 10s ease-in-out infinite;
+  /* PULL QUOTE (relate + invite deeper, no mechanism explainer here) */
+  .pull-quote {
+    border-left: 3px solid var(--text); padding: 2px 0 2px 20px; margin: 20px 0 28px;
+    font-size: 15.5px; font-weight: 500; color: var(--text); line-height: 1.6; max-width: 620px;
   }
-  .pipeline-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; border: 2px solid var(--text); }
-  @media(max-width:700px){
-    .pipeline-row { grid-template-columns: 1fr; }
-    .pipeline-rail { display: none; }
+  .pull-quote a {
+    display: inline-block; margin-top: 10px; color: var(--accent); font-weight: 700;
+    text-decoration: none; border-bottom: 1.5px solid var(--accent);
   }
-  .pipeline-stage { padding: 20px 20px 22px; border-right: 2px solid var(--text); }
-  .pipeline-stage:last-child { border-right: none; }
-  .pipeline-num {
-    display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: .1em;
-    color: var(--subtle); margin-bottom: 12px; transition: color .3s;
-  }
-  .pipeline-stage:nth-child(1) .pipeline-num { animation: pipelineLight 10s ease-in-out infinite; animation-delay: 0s; }
-  .pipeline-stage:nth-child(2) .pipeline-num { animation: pipelineLight 10s ease-in-out infinite; animation-delay: 2.5s; }
-  .pipeline-stage:nth-child(3) .pipeline-num { animation: pipelineLight 10s ease-in-out infinite; animation-delay: 5s; }
-  .pipeline-stage:nth-child(4) .pipeline-num { animation: pipelineLight 10s ease-in-out infinite; animation-delay: 7.5s; }
-  .pipeline-stage h4 { font-size: 14px; font-weight: 800; margin-bottom: 6px; letter-spacing: -.01em; }
-  .pipeline-stage p { font-size: 12.5px; color: var(--muted); line-height: 1.55; }
-  @keyframes pipelinePulse {
-    0%    { left: 12.5%; opacity: 0; }
-    4%    { opacity: 1; }
-    20%   { left: 12.5%; opacity: 1; }
-    25%   { left: 37.5%; }
-    45%   { left: 37.5%; }
-    50%   { left: 62.5%; }
-    70%   { left: 62.5%; }
-    75%   { left: 87.5%; }
-    92%   { left: 87.5%; opacity: 1; }
-    96%   { opacity: 0; }
-    100%  { left: 12.5%; opacity: 0; }
-  }
-  @keyframes pipelineLight {
-    0%   { color: var(--subtle); }
-    4%   { color: var(--accent); }
-    20%  { color: var(--accent); }
-    24%  { color: var(--subtle); }
-    100% { color: var(--subtle); }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .pipeline-rail::before, .pipeline-num { animation: none !important; }
-  }
+  .pull-quote a:hover { color: var(--text); border-color: var(--text); }
 
   /* EVALS */
   #evals { padding: 72px 0; border-bottom: 2px solid var(--text); }
@@ -346,31 +307,10 @@
         </div>
         <p class="work-desc">AI agents write their own status updates &mdash; done, tested, fixed. Built a pipeline that checks those claims against the actual code change instead of trusting them. 23 real commits, hand-verified. 21 right. The 2 misses are the interesting part: one exposed a bug in the system&rsquo;s own fact-checking step.</p>
 
-        <div class="pipeline">
-          <p class="lessons-head">How it works, end to end</p>
-          <div class="pipeline-rail"></div>
-          <div class="pipeline-row">
-            <div class="pipeline-stage">
-              <span class="pipeline-num">01 &mdash; Fetch</span>
-              <h4>Pull the diff</h4>
-              <p>Run 4 deterministic checks against the real repo &mdash; no AI involved yet.</p>
-            </div>
-            <div class="pipeline-stage">
-              <span class="pipeline-num">02 &mdash; Read</span>
-              <h4>AI compares claim to code</h4>
-              <p>Claude checks the commit&rsquo;s own story against what the diff actually shows.</p>
-            </div>
-            <div class="pipeline-stage">
-              <span class="pipeline-num">03 &mdash; Enforce</span>
-              <h4>Rules can overrule it</h4>
-              <p>Code-level checks force the status when a claim is already proven false &mdash; the AI doesn&rsquo;t get the final say.</p>
-            </div>
-            <div class="pipeline-stage">
-              <span class="pipeline-num">04 &mdash; Self-check</span>
-              <h4>A second, independent pass</h4>
-              <p>Catches the AI contradicting itself &mdash; and turned out to need catching itself, too.</p>
-            </div>
-          </div>
+        <div class="pull-quote">
+          Sound familiar? Someone says it&rsquo;s done. You find out later it wasn&rsquo;t. This is the check that exists so you don&rsquo;t have to find out the hard way.
+          <br>
+          <a href="https://claude.ai/artifact/1VKJvjMPu99P18CWC6ujgX" target="_blank" rel="noopener">See the full trace, all 23 commits, and the one bug that slipped through &rarr;</a>
         </div>
 
         <p class="lessons-head">What I learned</p>
