@@ -144,16 +144,6 @@
   .exp-insight-label { font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); flex-shrink: 0; padding-top: 3px; }
   .exp-insight-text { font-size: 13px; color: var(--muted); line-height: 1.6; }
 
-  /* LOG */
-  #log { padding: 72px 0; border-bottom: 2px solid var(--text); }
-  .log-list { display: flex; flex-direction: column; }
-  .log-entry { display: grid; grid-template-columns: 52px 1fr; gap: 24px; padding: 28px 0; border-bottom: 1px solid var(--border); }
-  .log-entry:first-child { border-top: 2px solid var(--text); }
-  .log-num { font-size: 28px; font-weight: 900; color: var(--border); letter-spacing: -.03em; padding-top: 4px; }
-  .log-h { font-size: 18px; font-weight: 800; letter-spacing: -.02em; margin-bottom: 8px; }
-  .log-p { font-size: 14px; color: var(--muted); line-height: 1.65; }
-  .log-tag { display: inline-block; margin-top: 10px; font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--subtle); }
-
   /* CONNECT */
   #connect { padding: 72px 0; }
   .connect-statement { font-size: clamp(20px, 3vw, 28px); font-weight: 900; letter-spacing: -.02em; line-height: 1.25; max-width: 560px; margin-bottom: 40px; }
@@ -193,7 +183,6 @@
       <li><a href="#work">Work</a></li>
       <li><a href="#evals">Evals</a></li>
       <li><a href="#experiments">Data</a></li>
-      <li><a href="#log">Notes</a></li>
       <li><a href="#connect">Contact</a></li>
     </ul>
   </div>
@@ -457,40 +446,6 @@
       <div class="exp-insight">
         <span class="exp-insight-label">Finding</span>
         <span class="exp-insight-text">The structured sections prompt (what most teams default to) cost 52% more than the optimised version with no accuracy gain. At 1M calls/month: $225 wasted. Output token compression is the real lever.</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="log">
-  <div class="container">
-    <p class="section-kicker">Lab notes</p>
-    <h2 class="section-title">What I&rsquo;m learning</h2>
-    <p class="section-deck">Running log. Updated as I go.</p>
-    <div class="log-list">
-      <div class="log-entry">
-        <span class="log-num">03</span>
-        <div>
-          <h3 class="log-h">On hallucination risk in ambiguous inputs</h3>
-          <p class="log-p">Tested four prompt patterns on a deliberately messy prescription with three ambiguous drug entries. No variant hallucinated, including the unstructured one with no guardrails. This isn&rsquo;t a prompting finding. It&rsquo;s a model selection finding. Before deploying AI in safety-critical contexts, benchmark the model, not just the prompt.</p>
-          <span class="log-tag">Prompt engineering &middot; Model evaluation</span>
-        </div>
-      </div>
-      <div class="log-entry">
-        <span class="log-num">02</span>
-        <div>
-          <h3 class="log-h">On the difference between rules and architecture</h3>
-          <p class="log-p">An AI classification agent kept misclassifying despite increasingly specific rules. Each new rule added prompt length, which hit the output limit, which broke something else. The real fix: use deterministic queries for retrieval, leave AI only for interpretation. You cannot instruct your way out of an architectural problem.</p>
-          <span class="log-tag">Enterprise AI &middot; Agentic systems</span>
-        </div>
-      </div>
-      <div class="log-entry">
-        <span class="log-num">01</span>
-        <div>
-          <h3 class="log-h">On where agentic systems fail</h3>
-          <p class="log-p">After building a five-agent workflow, every failure happened at a boundary, a handoff point nobody owned. The agents performed well in isolation. The gaps were structural. The audit question isn&rsquo;t &ldquo;is each agent correct?&rdquo; It&rsquo;s &ldquo;who owns each seam?&rdquo;</p>
-          <span class="log-tag">Agentic systems &middot; System design</span>
-        </div>
       </div>
     </div>
   </div>
