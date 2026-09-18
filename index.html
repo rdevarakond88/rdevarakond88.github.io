@@ -305,7 +305,7 @@
             <span class="wtag wtag-amber">AI Evals</span>
           </div>
         </div>
-        <p class="work-desc">AI agents write their own status updates &mdash; done, tested, fixed. Built a pipeline that checks those claims against the actual code change instead of trusting them. 23 real commits, hand-verified. 21 right. The 2 misses are the interesting part: one exposed a bug in the system&rsquo;s own fact-checking step.</p>
+        <p class="work-desc">AI agents write their own status updates: done, tested, fixed. Built a pipeline that checks those claims against the actual code change instead of trusting them. 23 real commits, hand-verified. 21 right. The 2 misses are the interesting part: one exposed a bug in the system&rsquo;s own fact-checking step.</p>
 
         <div class="pull-quote">
           Sound familiar? Someone says it&rsquo;s done. You find out later it wasn&rsquo;t. This is the check that exists so you don&rsquo;t have to find out the hard way.
@@ -317,11 +317,11 @@
         <div class="lessons-list">
           <div class="lesson-item">
             <p class="lesson-label">On trust</p>
-            <p class="lesson-text">An AI agent grading its own status update is the same blind spot as a person grading their own work. The fix isn&rsquo;t a stricter prompt &mdash; it&rsquo;s an independent check that never takes the agent&rsquo;s word for it.</p>
+            <p class="lesson-text">An AI agent grading its own status update is the same blind spot as a person grading their own work. The fix isn&rsquo;t a stricter prompt. It&rsquo;s an independent check that never takes the agent&rsquo;s word for it.</p>
           </div>
           <div class="lesson-item">
             <p class="lesson-label">On self-checks</p>
-            <p class="lesson-text">Even the safety net can be wrong. A check built specifically to catch the AI contradicting itself turned out to match nearby words, not meaning &mdash; and flipped a correct answer to wrong on the identical input, twice.</p>
+            <p class="lesson-text">Even the safety net can be wrong. A check built specifically to catch the AI contradicting itself turned out to match nearby words, not meaning, and flipped a correct answer to wrong on the identical input, twice.</p>
           </div>
           <div class="lesson-item">
             <p class="lesson-label">On fixing vs. hiding</p>
@@ -351,23 +351,23 @@
         </thead>
         <tbody>
           <tr>
-            <td>Invocation compliance &mdash; right agent, right moment</td><td>70%</td>
+            <td>Invocation compliance: right agent, right moment</td><td>70%</td>
             <td><span class="badge badge-n">Mostly compliant</span></td>
           </tr>
           <tr>
-            <td>Output quality &mdash; correct format and content</td><td>50%</td>
+            <td>Output quality: correct format and content</td><td>50%</td>
             <td><span class="badge badge-r">Needs attention</span></td>
           </tr>
           <tr class="winner">
-            <td>Drift resistance &mdash; holds scope over long sessions</td><td>80%</td>
+            <td>Drift resistance: holds scope over long sessions</td><td>80%</td>
             <td><span class="badge badge-g">Healthy</span></td>
           </tr>
           <tr class="winner">
-            <td>State-driven routing &mdash; reads project state correctly</td><td>80%</td>
+            <td>State-driven routing: reads project state correctly</td><td>80%</td>
             <td><span class="badge badge-g">Healthy</span></td>
           </tr>
           <tr class="worst">
-            <td>End-to-end pipeline &mdash; all agents, real handoffs</td><td>0%</td>
+            <td>End-to-end pipeline: all agents, real handoffs</td><td>0%</td>
             <td><span class="badge badge-r">Critical gap</span></td>
           </tr>
         </tbody>
@@ -381,7 +381,7 @@
     <div class="exp-card">
       <div class="exp-head">
         <h3>Status-drift-agent eval, v10</h3>
-        <p>23 hand-labeled commits scored across 4 pipeline stages, from a single AI call to full deterministic rule enforcement. 6 historically unstable entries are re-run 3&times; independently &mdash; a single run isn&rsquo;t trusted as fact.</p>
+        <p>23 hand-labeled commits scored across 4 pipeline stages, from a single AI call to full deterministic rule enforcement. 6 historically unstable entries are re-run 3&times; independently, since a single run isn&rsquo;t trusted as fact.</p>
       </div>
       <table>
         <thead>
@@ -389,30 +389,30 @@
         </thead>
         <tbody>
           <tr class="winner">
-            <td>Deterministic overrides &mdash; force the right status once a claim is actually disproven</td><td>100%</td>
+            <td>Deterministic overrides: force the right status once a claim is actually disproven</td><td>100%</td>
             <td><span class="badge badge-g">Reliable</span></td>
           </tr>
           <tr class="winner">
-            <td>Model judgment &mdash; final status matches the hand-labeled answer key</td><td>91%</td>
+            <td>Model judgment: final status matches the hand-labeled answer key</td><td>91%</td>
             <td><span class="badge badge-g">Strong</span></td>
           </tr>
           <tr>
-            <td>Repeat-run stability &mdash; same commit, same answer, run independently</td><td>83%</td>
+            <td>Repeat-run stability: same commit, same answer, run independently</td><td>83%</td>
             <td><span class="badge badge-n">Mostly stable</span></td>
           </tr>
           <tr class="worst">
-            <td>Self-check validator &mdash; flags a real contradiction, not a coincidence</td><td>0%</td>
+            <td>Self-check validator: flags a real contradiction, not a coincidence</td><td>0%</td>
             <td><span class="badge badge-r">Critical gap</span></td>
           </tr>
           <tr>
-            <td>Unverifiable-claim detection &mdash; catches a bare, evidence-free process claim</td><td>n/a</td>
+            <td>Unverifiable-claim detection: catches a bare, evidence-free process claim</td><td>n/a</td>
             <td><span class="badge badge-r">Not built</span></td>
           </tr>
         </tbody>
       </table>
       <div class="exp-insight">
         <span class="exp-insight-label">Finding</span>
-        <span class="exp-insight-text">Four of five checks hold up well, 83&ndash;100%. The fifth is where it breaks: a validator built specifically to catch the AI contradicting itself turned out to have its own blind spot. It decides &ldquo;is this a real problem&rdquo; by checking whether two words sit close together in a sentence &mdash; not by understanding what the sentence means. Same commit, same true fact, worded two slightly different ways: one wording passed, the other flipped a correct answer to wrong, twice in three tries. Widening the rule would only catch this exact wording and miss the next one. A checker built to watch the AI needs its own watching &mdash; invisible until you check the checker, not just the thing it&rsquo;s checking.</span>
+        <span class="exp-insight-text">Four of five checks hold up well, 83&ndash;100%. The fifth is where it breaks: a validator built specifically to catch the AI contradicting itself turned out to have its own blind spot. It decides &ldquo;is this a real problem&rdquo; by checking whether two words sit close together in a sentence, not by understanding what the sentence means. Same commit, same true fact, worded two slightly different ways: one wording passed, the other flipped a correct answer to wrong, twice in three tries. Widening the rule would only catch this exact wording and miss the next one. A checker built to watch the AI needs its own watching. It&rsquo;s invisible until you check the checker, not just the thing it&rsquo;s checking.</span>
       </div>
     </div>
   </div>
