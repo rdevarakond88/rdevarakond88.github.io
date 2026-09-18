@@ -122,8 +122,7 @@
   /* EVALS */
   #evals { padding: 72px 0; border-bottom: 2px solid var(--text); }
 
-  /* EXPERIMENTS */
-  #experiments { padding: 72px 0; border-bottom: 2px solid var(--text); }
+  /* EVAL/EXPERIMENT CARDS (shared by #evals) */
   .exp-card { border: 2px solid var(--text); }
   .exp-head { padding: 28px 28px 20px; border-bottom: 2px solid var(--text); }
   .exp-head h3 { font-size: 20px; font-weight: 900; letter-spacing: -.02em; margin-bottom: 6px; }
@@ -182,7 +181,6 @@
     <ul class="nav-links">
       <li><a href="#work">Work</a></li>
       <li><a href="#evals">Evals</a></li>
-      <li><a href="#experiments">Data</a></li>
       <li><a href="#connect">Contact</a></li>
     </ul>
   </div>
@@ -402,50 +400,6 @@
       <div class="exp-insight">
         <span class="exp-insight-label">Finding</span>
         <span class="exp-insight-text">Four of five checks hold up well, 83&ndash;100%. The fifth is where it breaks: a validator built specifically to catch the AI contradicting itself turned out to have its own blind spot. It decides &ldquo;is this a real problem&rdquo; by checking whether two words sit close together in a sentence, not by understanding what the sentence means. Same commit, same true fact, worded two slightly different ways: one wording passed, the other flipped a correct answer to wrong, twice in three tries. Widening the rule would only catch this exact wording and miss the next one. A checker built to watch the AI needs its own watching. It&rsquo;s invisible until you check the checker, not just the thing it&rsquo;s checking.</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="experiments">
-  <div class="container">
-    <p class="section-kicker">Experiments</p>
-    <h2 class="section-title">Things I&rsquo;ve measured</h2>
-    <p class="section-deck">Real API calls. Real token counts. Real findings.</p>
-
-    <div class="exp-card">
-      <div class="exp-head">
-        <h3>Prompt pattern efficiency: clinical NLP tasks</h3>
-        <p>Four patterns, same task, same model. Token cost, accuracy, and hallucination risk across three experiments.</p>
-      </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Pattern</th><th>Tokens</th><th>Cost</th><th>Accuracy</th><th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Unstructured</td><td>426</td><td>$0.000276</td><td>n/a</td>
-            <td><span class="badge badge-n">Baseline</span></td>
-          </tr>
-          <tr class="worst">
-            <td>Structured sections</td><td>561</td><td>$0.000422</td><td>n/a</td>
-            <td><span class="badge badge-r">Most expensive</span></td>
-          </tr>
-          <tr>
-            <td>Constrained output</td><td>395</td><td>$0.000224</td><td>n/a</td>
-            <td><span class="badge badge-n">Better</span></td>
-          </tr>
-          <tr class="winner">
-            <td>Role + strict format</td><td>387</td><td>$0.000197</td><td>11/11</td>
-            <td><span class="badge badge-g">Best</span></td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="exp-insight">
-        <span class="exp-insight-label">Finding</span>
-        <span class="exp-insight-text">The structured sections prompt (what most teams default to) cost 52% more than the optimised version with no accuracy gain. At 1M calls/month: $225 wasted. Output token compression is the real lever.</span>
       </div>
     </div>
   </div>
